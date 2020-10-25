@@ -3,35 +3,64 @@
 namespace Tests;
 
 use  PHPUnit\Framework\TestCase;
-use App\RpgCombat;
+use App\Fighter;
 
 
-class RpgCombatTest extends TestCase {
+class FighterTest extends TestCase {
 
-	public function test_inflict_damage_reduces_health(
-	) {
-		$character = new RpgCombat();
-		$result = $character->inflictDamage(1);
-		
-		$this->assertEquals(99, $result);
-	}
-	public function test_if_inflict_damage_bigger_health_health0(
+	public function test_initial_health(
 		) {
-			$character = new RpgCombat();
-			$result = $character->inflictDamage(200);
+			$character = new Fighter();
+			$result = $character->health;
+			
+			$this->assertEquals(1000, $result);
+		}
+	public function test_initial_level(
+		) {
+			$character = new Fighter();
+			$result = $character->level;
+			
+			$this->assertEquals(1, $result);
+		}
+	public function test_initial_isalive(
+		) {
+			$character = new Fighter();
+			$result = $character->isAlive;
+			
+			$this->assertEquals(true, $result);
+		}
+
+	public function test_get_damage_reduces_health(
+	) {
+		$character = new Fighter();
+		$result = $character->getDamage(1);
+		
+		$this->assertEquals(999, $result);
+	}
+	public function test_if_get_damage_bigger_health_health0(
+		) {
+			$character = new Fighter();
+			$result = $character->getDamage(1020);
 			
 			$this->assertEquals(0, $result);
 	}
-	public function test_if_inflict_damage_bigger_health_alive_false(
+	public function test_if_get_damage_bigger_health_alive_false(
 		) {
-			$character = new RpgCombat();
-			$character->inflictDamage(200);
+			$character = new Fighter();
+			$character->getDamage(1020);
 			$result = $character->isAlive;
 			
 			$this->assertEquals(false, $result);
 	}
 
-	
+	public function test_get_healed_on_dead_character(
+		) {
+			$character = new Fighter();
+			$character->getDamage(1020);
+			$result = $character->getHealed(12);
+						
+			$this->assertEquals("You are dead and can not be healed", $result);
+		}
 }
 
 

@@ -2,7 +2,7 @@
 
 namespace App;
 
-class RpgCombat {
+class Fighter {
 
   public Int $health;
   public Int $level;
@@ -10,12 +10,12 @@ class RpgCombat {
 
   public function __construct()
     {
-        $this->health = 100;
+        $this->health = 1000;
         $this->level = 1;
         $this->isAlive = true;
     }
 
-  public function inflictDamage(Int $number) {
+  public function getDamage(Int $number) {
     if($number > $this->health) {
       $this->health = 0;
       $this->isAlive = false;
@@ -26,4 +26,11 @@ class RpgCombat {
 
     }
   }
+  public function getHealed(Int $number) {
+    if($this->isAlive === false) {
+      return "You are dead and can not be healed";
+    }
+    return "You have been healed by $number";
+  }
+
 }
