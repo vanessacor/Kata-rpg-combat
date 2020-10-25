@@ -30,7 +30,7 @@ class Fighter {
     if($this->isAlive === false) {
       return "You are dead and can not be healed";
     }
-    return "You have been healed by $number";
+    $this->health + $number > 1000 ? $this->health = 1000 : $this->health = $this->health + $number;
   }
 
 }

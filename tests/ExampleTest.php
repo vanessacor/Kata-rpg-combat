@@ -58,8 +58,17 @@ class FighterTest extends TestCase {
 			$character = new Fighter();
 			$character->getDamage(1020);
 			$result = $character->getHealed(12);
-						
+			
 			$this->assertEquals("You are dead and can not be healed", $result);
+		}
+	public function test_get_healed_raises_health_above_1000(
+		) {
+			$character = new Fighter();
+			$character->getDamage(100);
+			$character->getHealed(122);
+			$result = $character->health;
+
+			$this->assertEquals(1000, $result);
 		}
 }
 
