@@ -15,7 +15,7 @@ class Fighter {
         $this->isAlive = true;
     }
 
-  public function getDamage(Int $number) {
+  public function receiveDamage(Int $number) {
     if($number > $this->health) {
       $this->health = 0;
       $this->isAlive = false;
@@ -26,7 +26,7 @@ class Fighter {
 
     }
   }
-  public function getHealed(Int $number) {
+  public function receiveHealth(Int $number) {
     if($this->isAlive === false) {
       return "You are dead and can not be healed";
     }

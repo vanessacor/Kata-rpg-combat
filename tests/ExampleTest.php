@@ -33,21 +33,21 @@ class FighterTest extends TestCase {
 	public function test_get_damage_reduces_health(
 	) {
 		$character = new Fighter();
-		$result = $character->getDamage(1);
+		$result = $character->receiveDamage(1);
 		
 		$this->assertEquals(999, $result);
 	}
 	public function test_if_get_damage_bigger_health_health0(
 		) {
 			$character = new Fighter();
-			$result = $character->getDamage(1020);
+			$result = $character->receiveDamage(1020);
 			
 			$this->assertEquals(0, $result);
 	}
 	public function test_if_get_damage_bigger_health_alive_false(
 		) {
 			$character = new Fighter();
-			$character->getDamage(1020);
+			$character->receiveDamage(1020);
 			$result = $character->isAlive;
 			
 			$this->assertEquals(false, $result);
@@ -56,16 +56,16 @@ class FighterTest extends TestCase {
 	public function test_get_healed_on_dead_character(
 		) {
 			$character = new Fighter();
-			$character->getDamage(1020);
-			$result = $character->getHealed(12);
+			$character->receiveDamage(1020);
+			$result = $character->receiveHealth(12);
 			
 			$this->assertEquals("You are dead and can not be healed", $result);
 		}
 	public function test_get_healed_raises_health_above_1000(
 		) {
 			$character = new Fighter();
-			$character->getDamage(100);
-			$character->getHealed(122);
+			$character->receiveDamage(100);
+			$character->receiveHealth(122);
 			$result = $character->health;
 
 			$this->assertEquals(1000, $result);
