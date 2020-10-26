@@ -2,35 +2,53 @@
 
 namespace App;
 
-class Fighter {
+class Fighter
+{
 
-  public Int $health;
-  public Int $level;
-  public Bool $isAlive;
+    private Int $health;
+    private Int $level;
+    private Bool $isAlive;
 
-  public function __construct()
+    public function __construct()
     {
         $this->health = 1000;
         $this->level = 1;
         $this->isAlive = true;
     }
 
-  public function receiveDamage(Int $number) {
-    if($number > $this->health) {
-      $this->health = 0;
-      $this->isAlive = false;
+    public function getHealth()
+    {
+        return $this->health;
     }
-    else {
-      $this->health = $this->health - $number;
-      return  $this->health;
 
+    public function getLevel()
+    {
+        return $this->level;
     }
-  }
-  public function receiveHealth(Int $number) {
-    if($this->isAlive === false) {
-      return "You are dead and can not be healed";
+
+    public function checkIsAlive()
+    {
+        return $this->isAlive;
     }
-    $this->health + $number > 1000 ? $this->health = 1000 : $this->health = $this->health + $number;
-  }
+
+    public function attack($victim, Int $number)
+    {
+        if ($number > $victim->health) {
+            $victim->health = 0;
+            $victim->isAlive = false;
+        } else {
+            $victim->health = $victim->health - $number;
+            return $victim->health;
+
+        }
+    }
+
+    public function heal($fighter, Int $number)
+    {
+        if ($fighter->isAlive == false) {
+            return "Your friend is dead and can not be healed...sorry";
+        }
+        $fighter->health + $number > 1000 ? $fighter->health = 1000 : $fighter->health = $fighter->health + $number;
+    }
 
 }

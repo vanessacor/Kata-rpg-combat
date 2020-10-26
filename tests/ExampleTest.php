@@ -2,74 +2,79 @@
 
 namespace Tests;
 
-use  PHPUnit\Framework\TestCase;
 use App\Fighter;
+use PHPUnit\Framework\TestCase;
 
+class FighterTest extends TestCase
+{
 
-class FighterTest extends TestCase {
+    public function test_initial_health(
+    ) {
+        $character = new Fighter();
+        $result = $character->getHealth();
 
-	public function test_initial_health(
-		) {
-			$character = new Fighter();
-			$result = $character->health;
-			
-			$this->assertEquals(1000, $result);
-		}
-	public function test_initial_level(
-		) {
-			$character = new Fighter();
-			$result = $character->level;
-			
-			$this->assertEquals(1, $result);
-		}
-	public function test_initial_isalive(
-		) {
-			$character = new Fighter();
-			$result = $character->isAlive;
-			
-			$this->assertEquals(true, $result);
-		}
+        $this->assertEquals(1000, $result);
+    }
+    public function test_initial_level(
+    ) {
+        $character = new Fighter();
+        $result = $character->getLevel();
 
-	public function test_get_damage_reduces_health(
-	) {
-		$character = new Fighter();
-		$result = $character->receiveDamage(1);
-		
-		$this->assertEquals(999, $result);
-	}
-	public function test_if_get_damage_bigger_health_health0(
-		) {
-			$character = new Fighter();
-			$result = $character->receiveDamage(1020);
-			
-			$this->assertEquals(0, $result);
-	}
-	public function test_if_get_damage_bigger_health_alive_false(
-		) {
-			$character = new Fighter();
-			$character->receiveDamage(1020);
-			$result = $character->isAlive;
-			
-			$this->assertEquals(false, $result);
-	}
+        $this->assertEquals(1, $result);
+    }
+    public function test_initial_isalive(
+    ) {
+        $character = new Fighter();
+        $result = $character->checkIsAlive();
 
-	public function test_get_healed_on_dead_character(
-		) {
-			$character = new Fighter();
-			$character->receiveDamage(1020);
-			$result = $character->receiveHealth(12);
-			
-			$this->assertEquals("You are dead and can not be healed", $result);
-		}
-	public function test_get_healed_raises_health_above_1000(
-		) {
-			$character = new Fighter();
-			$character->receiveDamage(100);
-			$character->receiveHealth(122);
-			$result = $character->health;
+        $this->assertEquals(true, $result);
+    }
 
-			$this->assertEquals(1000, $result);
-		}
+    public function test_attack_reduces_health(
+    ) {
+        $victim = new Fighter();
+        $attacker = new Fighter();
+        $attacker->attack($victim, 1);
+        $result = $victim->getHealth();
+
+        $this->assertEquals(999, $result);
+    }
+
+    public function test_if_attack_bigger_health_health0(
+    ) {
+        $victim = new Fighter();
+        $attacker = new Fighter();
+        $attacker->attack($victim, 1020);
+        $result = $victim->getHealth();
+
+        $this->assertEquals(0, $result);
+    }
+    public function test_if_attack_bigger_health_alive_false(
+    ) {
+        $victim = new Fighter();
+        $attacker = new Fighter();
+        $attacker->attack($victim, 1020);
+        $result = $victim->checkIsAlive();
+
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_heal_on_dead_character(
+    ) {
+        $healer = new Fighter();
+        $wounded = new Fighter();
+        $healer->attack($wounded, 1020);
+        $result = $healer->heal($wounded, 120);
+
+        $this->assertEquals("Your friend is dead and can not be healed...sorry", $result);
+    }
+    public function test_heal_cannot_raise_health_above_1000(
+    ) {
+        $healer = new Fighter();
+        $wounded = new Fighter();
+        $healer->heal($wounded, 20);
+        $result = $wounded->getHealth();
+
+        $this->assertEquals(1000, $result);
+    }
 }
-
-
