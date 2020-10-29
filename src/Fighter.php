@@ -31,9 +31,13 @@ class Fighter
         return $this->isAlive;
     }
 
+    public function checkPermission ($character) {
+        return $this === $character;
+    }
+
     public function attack($victim, Int $number)
     {
-        if($this === $victim ) {
+        if($this->checkPermission($victim)) {
             return;
         }
         if ($number > $victim->health) {
@@ -47,6 +51,9 @@ class Fighter
 
     public function heal($fighter, Int $number)
     {
+        if(!$this->checkPermission($fighter)) {
+            return;
+        }
         if (!$fighter->isAlive) {
             return;
         }

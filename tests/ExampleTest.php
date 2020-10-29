@@ -87,5 +87,16 @@ class FighterTest extends TestCase
         
         $this->assertEquals(1000, $result);
     }
+
+    public function test_character_can_only_Heal_itself() 
+    {
+        $fighter = new Fighter();
+        $enemy = new Fighter();
+        $fighter->attack($enemy, 100);
+        $fighter->heal($enemy, 100);
+        $result = $enemy->getHealth();
+        
+        $this->assertEquals(900, $result);
+    }
     
 }
