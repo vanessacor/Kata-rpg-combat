@@ -99,4 +99,14 @@ class FighterTest extends TestCase
         $this->assertEquals(900, $result);
     }
     
+    public function test_if_target_5_or_more_Levels_above_the_attacker_damage_reduced_by_half() 
+    {
+        $fighter = new Fighter();
+        $enemy = new Fighter();
+        $enemy->raiseLevel(8);
+        $fighter->attack($enemy, 100);
+        $result = $enemy->getHealth();
+        
+        $this->assertEquals(950, $result);
+    }
 }

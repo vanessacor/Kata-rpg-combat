@@ -40,6 +40,9 @@ class Fighter
         if($this->checkPermission($victim)) {
             return;
         }
+        if($this->compareLevel($victim) >= 5) {
+            $number -= ($number / 2);
+        }
         if ($number > $victim->health) {
             $victim->health = 0;
             $victim->isAlive = false;
@@ -49,19 +52,26 @@ class Fighter
             return $victim->health;       
     }
 
-    public function heal($fighter, Int $number)
-    {
+    public function heal($fighter, Int $number) {
+        $maxHealth = 1000;
         if(!$this->checkPermission($fighter)) {
             return;
         }
         if (!$fighter->isAlive) {
             return;
         }
-        if($fighter->health + $number > 1000) {
-            $fighter->health = 1000;
+        if($fighter->health + $number > $maxHealth) {
+            $fighter->health = $maxHealth;
             return;
         } 
         $fighter->health += $number;
     }
+    public function raiseLevel($value) {
+        $this->level +=$value;
+    }
 
+    public function compareLevel($enemy) {
+        $result = $enemy->level - $this->level;
+        return $result;
+    }
 }
