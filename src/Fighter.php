@@ -33,22 +33,28 @@ class Fighter
 
     public function attack($victim, Int $number)
     {
+        if($this === $victim ) {
+            return;
+        }
         if ($number > $victim->health) {
             $victim->health = 0;
             $victim->isAlive = false;
-        } else {
-            $victim->health = $victim->health - $number;
-            return $victim->health;
-
-        }
+            return;
+        } 
+            $victim->health -= $number;
+            return $victim->health;       
     }
 
     public function heal($fighter, Int $number)
     {
-        if ($fighter->isAlive == false) {
-            return "Your friend is dead and can not be healed...sorry";
+        if (!$fighter->isAlive) {
+            return;
         }
-        $fighter->health + $number > 1000 ? $fighter->health = 1000 : $fighter->health = $fighter->health + $number;
+        if($fighter->health + $number > 1000) {
+            $fighter->health = 1000;
+            return;
+        } 
+        $fighter->health += $number;
     }
 
 }

@@ -64,9 +64,10 @@ class FighterTest extends TestCase
         $healer = new Fighter();
         $wounded = new Fighter();
         $healer->attack($wounded, 1020);
-        $result = $healer->heal($wounded, 120);
+        $healer->heal($wounded, 120);
+        $result = $wounded->checkIsAlive();
 
-        $this->assertEquals("Your friend is dead and can not be healed...sorry", $result);
+        $this->assertEquals(false, $result);
     }
     public function test_heal_cannot_raise_health_above_1000(
     ) {
@@ -77,4 +78,14 @@ class FighterTest extends TestCase
 
         $this->assertEquals(1000, $result);
     }
+
+    public function test_character_cannot_deal_Damage_to_itself() 
+    {
+        $fighter = new Fighter();
+        $fighter->attack($fighter, 100);
+        $result = $fighter->getHealth();
+        
+        $this->assertEquals(1000, $result);
+    }
+    
 }
