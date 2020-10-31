@@ -54,13 +54,26 @@ class Fighter
             $this->maxRange = 20;
         }
     }
+    public function checkDistance (Int $distance) {
+        if($distance > $this->maxRange) {
+           return true;
+        }
+    }
+    
 
-
-    public function attack($victim, Int $damage) {
+    public function attack($victim, Int $damage, Int $distance = 0) {
         if($this->checkPermission($victim)) {
             return;
         }
+
+        $this->checkType();
+
+        if($this->checkDistance($distance)) {
+            return;
+        }
+
         $damage = $this->updateDamage($victim, $damage);
+        
         if ($damage > $victim->health) {
             $victim->health = 0;
             $victim->isAlive = false;
@@ -73,6 +86,7 @@ class Fighter
 
     public function heal($fighter, Int $number) {
         $maxHealth = 1000;
+
         if(!$this->checkPermission($fighter)) {
             return;
         }
@@ -85,6 +99,7 @@ class Fighter
         } 
         $fighter->health += $number;
     }
+
     public function raiseLevel($value) {
         $this->level +=$value;
     }

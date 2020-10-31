@@ -147,11 +147,11 @@ class FighterTest extends TestCase
     }
     public function test_characters_must_be_in_range_to_deal_damage_() 
     {
-        $fighter = new Fighter("range");
-        $fighter->checkType();
+        $fighter = new Fighter("melee");
+        $enemy = new Fighter();
+        $fighter->attack($enemy, 100, 3);
+        $result = $enemy->getHealth();
         
-        $result = $fighter->getMaxRange();
-        
-        $this->assertEquals(20, $result);
+        $this->assertEquals(1000, $result);
     }
 }

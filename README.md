@@ -50,3 +50,5 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 - Ranged fighters have a range of 20 meters.
 
 - Characters must be in range to deal damage to a target.
+
+
