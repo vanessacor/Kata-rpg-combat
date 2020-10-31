@@ -119,4 +119,39 @@ class FighterTest extends TestCase
         
         $this->assertEquals(800, $result);
     }
+    public function test_if_characters_have_attack_max_range_() 
+    {
+        $fighter = new Fighter();
+        
+        $result = $fighter->getMaxRange();
+        
+        $this->assertEquals(1, $result);
+    }
+    public function test_melee_fighters_have_range_2_meters_() 
+    {
+        $fighter = new Fighter("melee");
+        $fighter->checkType();
+        
+        $result = $fighter->getMaxRange();
+        
+        $this->assertEquals(2, $result);
+    }
+    public function test_range_fighters_have_range_20_meters_() 
+    {
+        $fighter = new Fighter("range");
+        $fighter->checkType();
+        
+        $result = $fighter->getMaxRange();
+        
+        $this->assertEquals(20, $result);
+    }
+    public function test_characters_must_be_in_range_to_deal_damage_() 
+    {
+        $fighter = new Fighter("range");
+        $fighter->checkType();
+        
+        $result = $fighter->getMaxRange();
+        
+        $this->assertEquals(20, $result);
+    }
 }

@@ -40,3 +40,13 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
    - If the target is 5 or more Levels above the attacker, Damage is reduced by 50%
    - If the target is 5 or more levels below the attacker, Damage is increased by 50%
+
+#### Iteration Three
+
+- Characters have an attack Max Range.
+
+- Melee fighters have a range of 2 meters.
+
+- Ranged fighters have a range of 20 meters.
+
+- Characters must be in range to deal damage to a target.

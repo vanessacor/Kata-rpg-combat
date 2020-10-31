@@ -2,18 +2,25 @@
 
 namespace App;
 
+use PhpParser\Node\Expr\Cast\Int_;
+use PhpParser\Node\Expr\Cast\String_;
+
 class Fighter
 {
 
     private Int $health;
     private Int $level;
     private Bool $isAlive;
+    private Int $maxRange;
+    public String $fighterType;
 
-    public function __construct()
+    public function __construct($type = "default")
     {
         $this->health = 1000;
         $this->level = 1;
         $this->isAlive = true;
+        $this->maxRange = 1;
+        $this->fighterType = $type;
     }
 
     public function getHealth()
@@ -26,6 +33,10 @@ class Fighter
         return $this->level;
     }
 
+    public function getMaxRange()
+    {
+        return $this->maxRange;
+    }
     public function checkIsAlive()
     {
         return $this->isAlive;
@@ -34,6 +45,16 @@ class Fighter
     public function checkPermission ($character) {
         return $this === $character;
     }
+
+    public function checkType () {
+        if($this->fighterType === "melee") {
+            $this->maxRange = 2;
+        }
+        if($this->fighterType === "range") {
+            $this->maxRange = 20;
+        }
+    }
+
 
     public function attack($victim, Int $damage) {
         if($this->checkPermission($victim)) {
